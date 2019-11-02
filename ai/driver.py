@@ -1,4 +1,5 @@
 import screenshot
+import controls
 
 def main():
     print('Driver')
