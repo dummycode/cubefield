@@ -8,13 +8,13 @@ Coordinates assume a screen resolution of 1080p and
 game running in Chrome with zoom set to 100%
 """
 
-GAME_HEIGHT = 600
-GAME_WIDTH = 800
+GAME_HEIGHT = 1200
+GAME_WIDTH = 1600
 GAME_TARGET = (screen.X_PAD, screen.Y_PAD, screen.X_PAD + GAME_WIDTH, screen.Y_PAD + GAME_HEIGHT)
 
 def screenshot(target=None):
     print("Screenshot: " + str(target))
-    image = ImageGrab.grab(target)
+    image = ImageGrab.grab(bbox=target)
 
     return image
 
@@ -32,7 +32,7 @@ def saveGame():
     return saveScreen(GAME_TARGET)
 
 def main():
-    print(grabGame())
+    saveGame()
 
 if __name__ == '__main__':
     main()

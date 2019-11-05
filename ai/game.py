@@ -20,7 +20,7 @@ def save_image(image):
 
 def process_image(image):
     image_array = np.array(image)
-    processed_image = cv2.resize(image_array, (60, 45))
+    processed_image = cv2.resize(image_array, (240, 180))
     processed_image = cv2.Canny(processed_image, threshold1=100, threshold2=200)
 
     return processed_image
@@ -32,7 +32,7 @@ class Game():
 
     def get_state(self):
         image = screenshot.grabGame().convert('L')
-        score_image = image.crop((15, 25, 105, 50))
+        score_image = image.crop((30, 50, 210, 100))
 
         # Get current score
         try:
@@ -44,8 +44,6 @@ class Game():
             raise Exception("Cannot process score from screenshot")
 
         processed_image = process_image(image)
-        cv2.imshow("test", processed_image)
-        cv2.waitKey(0)
 
         reward = score
         is_over = calc_is_over(processed_image)
