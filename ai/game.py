@@ -37,21 +37,18 @@ class Game():
         # Get current score
         try:
             score_string = pytesseract.image_to_string(score_image)
-            non_decimal = re.compile(r'[^\d]+')
-            non_decimal.sub('', score_string)
+            score_string = re.sub('[^0-9]', '', score_string)
+            score_string = score_string if len(score_string) > 0 else "0"
             score = int(score_string)
         except ValueError:
             raise Exception("Cannot process score from screenshot")
 
         processed_image = process_image(image)
+        cv2.imshow("test", processed_image)
+        cv2.waitKey(0)
 
-        reward = 0.1 * score / 10
+        reward = score
         is_over = calc_is_over(processed_image)
-
-        # if is crashed
-        if False:
-            is_over = True
-            reward = -11/score
 
         return processed_image, reward, is_over
 
@@ -83,7 +80,6 @@ class Game():
 def main():
     game = Game(None, None)
     while True:
-        time.sleep(0.25)
         print(game.get_state())
 
 if __name__ == "__main__":
